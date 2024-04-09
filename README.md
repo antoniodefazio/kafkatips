@@ -3,6 +3,9 @@ https://www.linkedin.com/in/antoniodefazio-java-python-developer-sviluppatore-tr
 # Idempotence of Kafka consumers provided by at-least-once message delivery semantics
 
 
+
+
+
 I worked for the most important Italian telecommunications company, the manager told me that we had to manage the telephone top-up system by transferring the remaining credit. These top-ups come from various apps and servers and must flow into the central system via a message broker. 
 
 The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system) containing the data in the broker's record. 
