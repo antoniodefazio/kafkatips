@@ -15,7 +15,7 @@ Therefore, better outline the scenario (use case) with the following constraint:
 
 I choose to use Apache Kafka as a message broker, with TLS and authentication, to rely on a transactional database (MySQL) to implement the idempotency of the Kafka consumer via Exactly-Once Semantics.
  
-To create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API, the second message generates the exceptions, and then note from the logs that if the consumer crashes before notifying the Kafka broker, the message is appropriately considered duplicated therefore the API is not called, furthermore if something goes wrong during the call to the external service the record is considered to be reprocessed while waiting for the external service to be restored. Check the database status also at http://localhost:8080/h2-console after the call.
+To create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API, the second message generates the exceptions. Check the database status also at http://localhost:8080/h2-console after the call.
 
 I apologize in advance for the antipatterns in the project and for the repeated code but this is a simulation in which a specific problem is focused on and solved. Non-use of Lombok and Java records is desired.
 
