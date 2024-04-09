@@ -5,13 +5,13 @@ Idempotence of Kafka consumers provideing at-least-once message delivery semanti
 
 I worked for the most important Italian telecommunications company, the manager told me that we had to manage the telephone top-up system by transferring the remaining credit. These top-ups come from various apps and servers and must flow into the central system via a message broker. 
 
-The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system) containing the data in the Kafka record. 
+The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system) containing the data in the borker's record. 
 
-I started with the in-depth questions of the task and pointed out the fact that the record is considered processed/consumed (org.springframework.kafka.support.Acknowledgment.acknowledge() ) if and only the call to the API has been successfully sent ( http response status ok). I also pointed out to the manager that in a distributed and containerized environment like Kubernetes(we deployed on GKE) it is possible that a consumer deployed as a pod could be shut down unexpectedly due to various reasons such as pod evictions, node failures, or deployments. As a result, the same Kafka record may be processed multiple times, potentially causing duplicate processing and, in our case, duplicate calls to the API.
+I started with the in-depth questions of the task and pointed out the fact that the record is considered processed/consumed (fro example org.springframework.kafka.support.Acknowledgment.acknowledge() ) if and only the call to the API has been successfully sent ( http response status ok). I also pointed out to the manager that in a distributed and containerized environment like Kubernetes(we deployed on GKE) it is possible that a consumer deployed as a pod could be shut down unexpectedly due to various reasons such as pod evictions, node failures, or deployments. As a result, the same broker's record may be processed multiple times, potentially causing duplicate processing and, in our case, duplicate calls to the API.
 
 Therefore, better outline the scenario (use case) with the following constraint:
 
-- each record generates the call to the API that actually carries out the recharge, this call obviously cannot be made twice for the same record
+- each broker's record generates the call to the API that actually carries out the recharge, this call obviously cannot be made twice for the same record
 
 I therefore choose to use Apache Kafka as a message broker, with TLS and authentication, to rely on a transactional database (MySQL) to implement the idempotency of the Kafka consumer via Exactly-Once Semantics.
  
