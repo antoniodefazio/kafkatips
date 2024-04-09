@@ -5,7 +5,7 @@ Idempotence of Kafka consumers provideing at-least-once message delivery semanti
 
 I worked for the most important Italian telecommunications company, the manager told me that we had to manage the telephone top-up system by transferring the remaining credit. These top-ups come from various apps and servers and must flow into the central system via a message broker. 
 
-The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system). 
+The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system) containing the data in the Kafka record. 
 
 I start with the in-depth questions of the task and point out the fact that the record is considered processed/consumed (org.springframework.kafka.support.Acknowledgment.acknowledge() ) if and only the call to the API has been successfully sent ( http response status ok). I also point out to the manager that in a distributed and containerized environment like Kubernetes it is possible that a consumer deployed as a pod could be shut down unexpectedly due to various reasons such as pod evictions, node failures, or deployments. As a result, the same Kafka record may be processed multiple times, potentially causing duplicate processing.
 
