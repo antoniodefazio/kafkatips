@@ -1,0 +1,56 @@
+kafka:
+  producer:
+    REQUEST_TIMEOUT_MS_CONFIG: 30000
+    ENABLE_IDEMPOTENCE_CONFIG: true
+    RETRIES_CONFIG: MAX_VALUE
+    RETRY_BACKOFF_MS_CONFIG: 100
+    BATCH_SIZE_CONFIG: 32768
+    LINGER_MS_CONFIG: 20
+    MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION: 1
+    BUFFER_MEMORY_CONFIG: 33554432
+    MAX_BLOCK_MS_CONFIG: 60000
+    MAX_REQUEST_SIZE_CONFIG: 1048576
+    ACKS_CONFIG: all
+    COMPRESSION_TYPE_CONFIG: gzip
+  consumer:
+    
+    group01: kafka_group01
+    group03: kafka_group03
+    group06: kafka_group06
+    group09: kafka_group09
+    REQUEST_TIMEOUT_MS_CONFIG: 30000
+    MAX_POLL_RECORDS_CONFIG: 1
+    MAX_POLL_INTERVAL_MS_CONFIG: 300000
+    ENABLE_AUTO_COMMIT_CONFIG: false
+    AUTO_COMMIT_INTERVAL_MS_CONFIG: 1000
+    AUTO_OFFSET_RESET_CONFIG: latest
+  polling: '100                                                                                                    '
+  server:
+    jaas:
+      password: testtest
+      username: test
+  servers: localhost:9092
+  topic:
+    receive: kafka-producer
+  topic01: kafka_topic01
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    password: sa
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    sql:
+      init:
+        enabled: true
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+
+
+  
