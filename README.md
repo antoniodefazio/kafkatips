@@ -1,6 +1,6 @@
 https://www.linkedin.com/in/antoniodefazio-java-python-developer-sviluppatore-trainer-docente
 
-# Idempotence of Kafka consumers provided by at-least-once message delivery semantics
+# Idempotence of Kafka consumers provided by at-least-once message delivery semantics in a Spring Boot project
 
 
 
@@ -17,9 +17,11 @@ Therefore, better outline the scenario (use case) with the following constraint:
 - each broker's record generates the call to the API that actually carries out the recharge, this call obviously cannot be made twice for the same record
 
 I choose to use Apache Kafka as a message broker, with TLS and authentication, to rely on a transactional database (MySQL) to implement the idempotency of the Kafka consumer via Exactly-Once Semantics.
- 
-To create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API, the second message generates the exceptions. Look at logs to understand the flow and how the problem is fixed. Check the database status also at http://localhost:8080/h2-console after the call.
 
-I apologize in advance for the antipatterns in the project and for the repeated code but this is a simulation in which a specific problem is focused on and solved. Non-use of Lombok and Java records is desired.
+It is preparatory to understanding the code to know the difference between save (or persist), flush and commit in the jpa/hibernate context
 
-See the next article to see the secured Kafka and Kafka Streams!!
+For Kafka launch docker-compose up and then Spring Boot, to create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API as the second message produced generates the exceptions. Look at logs to understand the flow and how the problem is fixed. Check the database status also at http://localhost:8080/h2-console after the call.
+
+This is a simplified but explanatory version of the solution so I apologize in advance for the antipatterns in the project and for the repeated code but this is a simulation in which a specific problem is focused on and solved. Non-use of Lombok and Java records is desired.
+
+See the next article to show the secured Kafka and Kafka Streams!!
