@@ -1,6 +1,6 @@
 https://www.linkedin.com/in/antoniodefazio-java-python-developer-sviluppatore-trainer-docente
 
-# Idempotence of Kafka consumers provided by at-least-once message delivery semantics with database in a Spring Boot project
+# Idempotence of Kafka consumers provided by at-least-once message delivery semantics with database in a Spring Boot project in Cloud
 
 
 
@@ -10,7 +10,7 @@ I worked for the most important Italian telecommunications company, the manager 
 
 The events must be processed respecting the order of arrival and the charging is concretely finalized with a call to a REST API (external system) containing the data in the broker's record. 
 
-I started with the in-depth questions of the task and pointed out the fact that the record is considered processed/consumed (Java side is org.springframework.kafka.support.Acknowledgment.acknowledge() which means consumer's offset updated) if and only the call to the API has been successfully sent ( http response status ok). I also pointed out to the manager that in a distributed and containerized environment like Kubernetes(we deployed on GKE) it is possible that a consumer deployed as a pod could be shut down unexpectedly due to various reasons such as pod evictions, node failures, or deployments. As a result, the same broker's record may be processed multiple times, potentially causing duplicate processing and, in our case, duplicate calls to the API.
+I started with the in-depth questions of the task and pointed out the fact that the record is considered processed/consumed (Java side is org.springframework.kafka.support.Acknowledgment.acknowledge() which means consumer's offset updated) if and only the call to the API has been successfully sent ( http response status ok). I also pointed out to the manager that in a Cloud and containerized environment, in fact we deployed the dockerized app on Google Kubernetes Engine, it is possible that a consumer deployed as a pod could be shut down unexpectedly due to various reasons such as pod evictions, node failures or deployments. As a result, the same broker's record may be processed multiple times, potentially causing duplicate processing and, in our case, duplicate calls to the API.
 
 Therefore, better outline the scenario (use case) with the following constraint:
 
