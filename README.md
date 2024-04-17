@@ -1,6 +1,6 @@
 https://www.linkedin.com/in/antoniodefazio-java-python-developer-sviluppatore-trainer-docente
 
-# Idempotence of Kafka consumers provided by at-least-once message delivery semantics with database in a Spring Boot project in Cloud Kubernetes
+# Idempotence of Kafka consumers provided by at-least-once message delivery semantics with database in a Spring Boot project on Cloud Kubernetes
 
 
 
