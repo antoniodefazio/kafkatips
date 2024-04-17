@@ -1,6 +1,6 @@
 https://www.linkedin.com/in/antoniodefazio-java-python-developer-sviluppatore-trainer-docente
 
-# Idempotence of Kafka consumers provided by at-least-once message delivery semantics in a Spring Boot project
+# Idempotence of Kafka consumers provided by at-least-once message delivery semantics with database in a Spring Boot project
 
 
 
@@ -20,8 +20,10 @@ I choose to use Apache Kafka as a message broker, with TLS and authentication, t
 
 It is preparatory to understanding the code to know the difference between save (or persist), flush and commit in the jpa/hibernate context
 
-For Kafka launch docker-compose up and then Spring Boot, to create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API as the second message produced generates the exceptions. Look at logs to understand the flow and how the problem is fixed. Check the database status also at http://localhost:8080/h2-console after the call.
+For Kafka launch docker-compose up and then Spring Boot. To create exceptional situations (shutDownUnexpectedly and externalServerError) you need to ping the /dummyProducerCrash API as the second message produced generates the exceptions. Look at logs to understand the flow and how the problem is fixed. Check the database status also at http://localhost:8080/h2-console after the call.
 
-This is a simplified but explanatory version of the solution so I apologize in advance for the antipatterns in the project and for the repeated code but this is a simulation in which a specific problem is focused on and solved. Non-use of Lombok and Java records is desired.
+I would like to underline that idempotence cannot be created using RAM and therefore with maps or internal databases(like H2), so the use of H2 is purely demonstrative and for practical reasons. Instead, you need a DBMS (as I was saying, I used MySQL) so in the example Spring Boot you just need, as Spring  developers know, to replace the 4 props relating to the db and insert the driver into the pom, but the code doesn't change thanks to the ORM.
+
+This is in fact a simplified but explanatory version of the solution so I apologize in advance for the antipatterns in the project and for the repeated code but this is a simulation in which a specific problem is focused on and solved. Non-use of Lombok and Java records is desired.
 
 See the next article to show the secured Kafka and Kafka Streams!!
